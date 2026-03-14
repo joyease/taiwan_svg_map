@@ -26,9 +26,60 @@
         <div id="status">輸入暱稱查詢旅遊記錄</div>
         
         <!-- 保持你原本的SVG地圖，不要改！ -->
-        <svg id="map" viewBox="0 0 1000 1350" preserveAspectRatio="xMidYMid meet">
-            <!-- 你原本的22個path保持不變，程式會自動找到並變色 -->
-        </svg>
+       <svg id="map" viewBox="0 0 960 1200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:700px;">
+    <style>
+        .county { stroke: #555; stroke-width: 2; fill: #999; transition: all 0.4s; cursor: pointer; }
+        .county:hover { stroke-width: 4; stroke: #000; opacity: 0.95; }
+    </style>
+    
+    <!-- 基隆市 -->
+    <path id="KEELUNG" class="county" d="M248 112L273 99L289 127L279 147L264 137Z"/>
+    <!-- 台北市 -->
+    <path id="TAIPEI" class="county" d="M289 127L320 121L336 158L316 168L289 147Z"/>
+    <!-- 新北市 -->
+    <path id="NEW_TAIPEI" class="county" d="M264 137L289 178L269 218L244 198Z"/>
+    <!-- 桃園市 -->
+    <path id="TAOYUAN" class="county" d="M289 178L320 188L340 218L320 228L300 208Z"/>
+    <!-- 新竹市 -->
+    <path id="HSINCHU_CITY" class="county" d="M340 218L355 213L365 243L350 253Z"/>
+    <!-- 新竹縣 -->
+    <path id="HSINCHU_COUNTY" class="county" d="M350 253L375 263L385 293L370 283Z"/>
+    <!-- 苗栗縣 -->
+    <path id="MIAOLI" class="county" d="M370 283L395 293L405 333L390 323Z"/>
+    <!-- 台中市 -->
+    <path id="TAICHUNG" class="county" d="M390 323L420 333L440 363L425 373L405 353Z"/>
+    <!-- 彰化縣 -->
+    <path id="CHANGHUA" class="county" d="M425 373L450 383L470 413L455 423Z"/>
+    <!-- 南投縣 -->
+    <path id="NANTou" class="county" d="M405 353L425 393L435 433L420 423Z"/>
+    <!-- 雲林縣 -->
+    <path id="YUNLIN" class="county" d="M455 423L480 433L500 463L485 473Z"/>
+    <!-- 嘉義市 -->
+    <path id="CHIAYI_CITY" class="county" d="M485 473L505 483L515 513L500 523Z"/>
+    <!-- 嘉義縣 -->
+    <path id="CHIAYI_COUNTY" class="county" d="M500 523L525 533L545 563L530 573Z"/>
+    <!-- 台南市 -->
+    <path id="Tainan" class="county" d="M515 513L545 523L565 553L545 563Z"/>
+    <!-- 高雄市 -->
+    <path id="KAOHSIUNG" class="county" d="M545 563L575 573L595 603L580 613L560 593Z"/>
+    <!-- 屏東縣 -->
+    <path id="PINGTUNG" class="county" d="M580 613L610 623L630 653L615 663Z"/>
+    
+    <!-- 宜蘭縣 -->
+    <path id="YILAN" class="county" d="M208 112L248 127L228 137Z"/>
+    <!-- 花蓮縣 -->
+    <path id="HUALIEN" class="county" d="M355 243L385 253L400 293L380 283Z"/>
+    <!-- 台東縣 -->
+    <path id="TAITUNG" class="county" d="M400 293L430 323L450 353L435 343Z"/>
+    
+    <!-- 金門縣 -->
+    <path id="KINMEN" class="county" d="M720 550L740 560L750 585L735 575Z"/>
+    <!-- 澎湖縣 -->
+    <path id="PENGHU" class="county" d="M610 610L630 620L640 640L625 630Z"/>
+    <!-- 連江縣 -->
+    <path id="LIANCHIANG" class="county" d="M750 585L770 595L780 615L765 605Z"/>
+</svg>
+
         
         <div class="legend">
             <div class="legend-item"><div class="legend-color" style="background:#999;"></div>0 (未去過)</div>
