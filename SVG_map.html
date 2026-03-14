@@ -66,5 +66,97 @@
             <path id="PINGTUNG" class="county" d="M 570 595 L 600 605 L 620 635 L 605 645 Z"/>
             
             <!-- 宜蘭縣 -->
-            <path id="YILAN" class="county" d="M 200 95 L 240 110
+            <path id="YILAN" class="county" d="M 200 95 L 240 110 L 220 120 Z"/>
+            <!-- 花蓮縣 -->
+            <path id="HUALIEN" class="county" d="M 355 225 L 385 235 L 400 275 L 380 265 Z"/>
+            <!-- 台東縣 -->
+            <path id="TAITUNG" class="county" d="M 400 275 L 430 305 L 450 335 L 435 325 Z"/>
+            
+            <!-- 金門縣 -->
+            <path id="KINMEN" class="county" d="M 720 520 L 740 530 L 750 555 L 735 545 Z"/>
+            <!-- 澎湖縣 -->
+            <path id="PENGHU" class="county" d="M 580 580 L 600 590 L 610 610 L 595 600 Z"/>
+            <!-- 連江縣 -->
+            <path id="LIANCHIANG" class="county" d="M 750 555 L 770 565 L 780 585 L 765 575 Z"/>
+        </svg>
+        
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background:#999;"></div>0 (未去過)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#4CAF50;"></div>1次 (綠)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#FFEB3B;"></div>2次 (黃)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#FF9800;"></div>3次 (橘)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#F44336;"></div>≥4次 (紅)</div>
+        </div>
+    </div>
+
+    <script>
+        const counties = ['KEELUNG','TAIPEI','NEW_TAIPEI','TAOYUAN','HSINCHU_CITY','HSINCHU_COUNTY','MIAOLI','TAICHUNG','CHANGHUA','NANTou','YUNLIN','CHIAYI_CITY','CHIAYI_COUNTY','Tainan','KAOHSIUNG','PINGTUNG','YILAN','HUALIEN','TAITUNG','KINMEN','PENGHU','LIANCHIANG'];
+        const colors = ['#999','#4CAF50','#FFEB3B','#FF9800','#F44336'];
+        const SHEET_ID = '2PACX-1vSwr9gxiDqT8-tTs_WO6772myCOj-LJccRnHPqIfyuyJAYGYQnfwYHHegut64M3aiq3BqKzvh147skT';
+        
+        async function loadUserData() {
+            const nickname = document.getElementById('nickname').value.trim();
+            if (!nickname) {
+                document.getElementById('status').innerHTML = '⚠️ 請輸入暱稱';
+                return;
+            }
+            
+            document.getElementById('status').innerHTML = '🔄 搜尋中...';
+            
+            try {
+                const csvUrl = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv`;
+                const csvData = await fetch(csvUrl).then(r => r.text());
+                
+                const rows = csvData
+                    .split('\n')
+                    .map(line => line.split(/[，,]/))
+                    .filter(row => row.length >= 2)
+                    .map(([name, seq]) => ({
+                        name: name.replace(/[\s\u00A0\u200B\u3000"'`]/g, '').trim(),
+                        sequence: seq.replace(/[\s\u00A0\u200B\u3000"'`]/g, '').trim()
+                    }))
+                    .filter(row => row.name && row.sequence.length === 22);
+                
+                const user = rows.find(row => 
+                    row.name.toLowerCase().includes(nickname.toLowerCase()) || 
+                    nickname.toLowerCase().includes(row.name.toLowerCase())
+                );
+                
+                if (user) {
+                    document.getElementById('status').innerHTML = `✅ ${user.name} 去過 ${user.sequence.split('').filter(n=>n!=='0').length} 個縣市`;
+                    updateMap(user.sequence);
+                } else {
+                    document.getElementById('status').innerHTML = `❌ 未找到 "${nickname}"`;
+                }
+            } catch (error) {
+                document.getElementById('status').innerHTML = '❌ 網路錯誤';
+                console.error(error);
+            }
+        }
+        
+        function updateMap(seq) {
+            counties.forEach((id, i) => {
+                const county = document.getElementById(id);
+                if (county) {
+                    const visits = parseInt(seq[i]) || 0;
+                    county.style.fill = colors[visits];
+                    county.title = `${getCountyName(i)}: ${visits}次`;
+                }
+            });
+        }
+        
+        function getCountyName(i) {
+            const names = ['基隆市','臺北市','新北市','桃園市','新竹市','新竹縣','苗栗縣','臺中市','彰化縣','南投縣','雲林縣','嘉義市','嘉義縣','臺南市','高雄市','屏東縣','宜蘭縣','花蓮縣','臺東縣','金門縣','澎湖縣','連江縣'];
+            return names[i];
+        }
+        
+        document.getElementById('nickname').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loadUserData();
+        });
+        
+        window.onload = () => updateMap('0'.repeat(22));
+    </script>
+</body>
+</html>
+
 
