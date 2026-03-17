@@ -35,7 +35,7 @@
             .attr("width", width).attr("height", height)
             .call(d3.drag().on("drag", dragRotate));
 
-        const visited = ['TWN', 'JPN', 'USA', 'CAN', 'KOR'];  // 加韓國示例，改你的
+        const visited = ['TW', 'JPN', 'US', 'CAN', 'KOR'];  // 加韓國示例，改你的
 
         // 載入地圖（unpkg CDN，GitHub Pages安全）
         d3.json("whereugo.json").then(world => {
