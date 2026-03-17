@@ -1,140 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>我去過台灣哪裡？22縣市旅遊地圖</title>
+    <title>Visited Countries Globe - GitHub Fix</title>
+    <script src="https://unpkg.com/d3@7/dist/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson@3/dist/topojson.min.js"></script>
     <style>
-        body { font-family: 'Microsoft JhengHei', sans-serif; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        h1 { color: #333; margin-bottom: 10px; }
-        #nickname { font-size: 28px; font-weight: bold; padding: 15px; width: 400px; border: 3px solid #ddd; border-radius: 10px; text-align: center; margin: 20px; letter-spacing: 3px; background: #f9f9f9; }
-        #nickname:focus { border-color: #4CAF50; outline: none; box-shadow: 0 0 15px rgba(76,175,80,0.3); }
-        button { font-size: 20px; padding: 15px 30px; margin: 0 10px; border: none; border-radius: 10px; cursor: pointer; background: #4CAF50; color: white; font-weight: bold; }
-        button:hover { background: #45a049; }
-        #status { margin: 20px 0; font-size: 18px; font-weight: bold; min-height: 30px; }
-        #map { width: 100%; height: 700px; border: 3px solid #ddd; border-radius: 15px; background: #f8f9fa; margin: 20px 0; }
-        .legend { display: flex; justify-content: center; gap: 30px; margin: 30px 0; flex-wrap: wrap; font-size: 18px; font-weight: bold; }
-        .legend-item { display: flex; align-items: center; gap: 12px; background: white; padding: 15px 25px; border-radius: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .legend-color { width: 40px; height: 30px; border-radius: 8px; border: 3px solid #333; }
-        #loading { display: none; color: #666; font-size: 16px; }
+        body { background: black; text-align: center; margin: 20px; font-family: Arial; }
+        #worldmap svg { background: rgba(50,167,224,0.4); border-radius: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.5); cursor: grab; }
+        #worldmap svg:active { cursor: grabbing; }
+        .ocean { fill: #0a0c10; }
+        .land { fill: rgba(188,188,188,0.8); stroke: #fff; stroke-width: 0.3px; transition: fill 0.3s; }
+        .visited { fill: gold; stroke: #ffed4e; stroke-width: 1px; }
+        .land:hover { fill: orange; }
+        #info { color: white; }
+        #error { color: red; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MySports點亮台灣</h1>
-        <p style="color:#666; font-size:20px;">輸入暱稱查看22縣市旅遊足跡</p>
-        <input type="text" id="nickname" placeholder="輸入暱稱（如：小名）">
-        <br><button onclick="loadUserData()">🔍 查詢我的地圖</button>
-        <div id="status">輸入暱稱查看旅遊記錄</div>
-        <div id="loading">🔄 載入台灣地圖中...</div>
-        
-        <!-- 使用JSON動態載入的台灣地圖 -->
-        <svg id="map" viewBox="0 0 1440 2055" preserveAspectRatio="xMidYMid meet" style="width:100%;height:700px;">
-            <defs>
-                <style>
-                    .county { stroke: #555; stroke-width: 1.5; fill: #999; transition: all 0.4s; cursor: pointer; }
-                    .county:hover { stroke-width: 3; stroke: #000; opacity: 0.95; }
-                </style>
-            </defs>
-            <!-- JSON會動態插入這裡 -->
-            <g id="county-group"></g>
-        </svg>
-        
-        <div class="legend">
-            <div class="legend-item"><div class="legend-color" style="background:#999;"></div>0 (未去過)</div>
-            <div class="legend-item"><div class="legend-color" style="background:#4CAF50;"></div>1次 (綠)</div>
-            <div class="legend-item"><div class="legend-color" style="background:#FFEB3B;"></div>2次 (黃)</div>
-            <div class="legend-item"><div class="legend-color" style="background:#FF9800;"></div>3次 (橘)</div>
-            <div class="legend-item"><div class="legend-color" style="background:#F44336;"></div>≥4次 (紅)</div>
-        </div>
-    </div>
+    <h2>我的去過國家地球儀</h2>
+    <div id="worldmap"></div>
+    <p id="info">拖曳旋轉 | 黃色=去過國家 | 滑鼠hover看細節</p>
+    <p id="error" style="display:none;"></p>
 
     <script>
-        const colors = ['#999','#4CAF50','#FFEB3B','#FF9800','#F44336'];
-        let countiesData = [];
-        let countyElements = {};
-        
-        // 🔥 啟動時載入台灣地圖JSON
-        async function initMap() {
-            document.getElementById('loading').style.display = 'block';
-            try {
-                const response = await fetch('./taiwan_counties.json');
-                countiesData = await response.json().counties;
-                
-                // 動態建立地圖path
-                const group = document.getElementById('county-group');
-                countiesData.forEach((county, index) => {
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.id = county.id;
-                    path.className.baseVal = 'county';
-                    path.setAttribute('title', county.title);
-                    path.setAttribute('d', county.path);
-                    path.dataset.index = index;
-                    countyElements[county.id] = path;
-                    group.appendChild(path);
-                });
-                
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('status').innerHTML = `✅ 地圖載入完成！發現 ${countiesData.length} 個縣市`;
-                
-            } catch (error) {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('status').innerHTML = '❌ 無法載入 taiwan_counties.json，請確認檔案存在';
-                console.error('JSON載入錯誤:', error);
-            }
-        }
-        
-        // 🔍 查詢用戶資料
-        async function loadUserData() {
-            const nickname = document.getElementById('nickname').value.trim();
-            if (!nickname) {
-                document.getElementById('status').innerHTML = '⚠️ 請輸入暱稱';
-                return;
-            }
-            
-            document.getElementById('status').innerHTML = '🔄 載入用戶資料...';
-            
-            try {
-                const response = await fetch('./data.json');
-                const data = await response.json();
-                const foundSequence = data.users[nickname];
-                
-                if (foundSequence && foundSequence.length === countiesData.length) {
-                    const visitedCount = foundSequence.split('').filter(n => n !== '0').length;
-                    document.getElementById('status').innerHTML = `✅ ${nickname} 去過 ${visitedCount}/${countiesData.length} 個縣市`;
-                    updateMap(foundSequence);
-                } else {
-                    document.getElementById('status').innerHTML = `❌ 未找到 "${nickname}" 的資料<br>請確認 data.json 有此暱稱`;
-                }
-            } catch (error) {
-                document.getElementById('status').innerHTML = '❌ 載入失敗，請確認 data.json 存在';
-                console.error('錯誤:', error);
-            }
-        }
-        
-        // 更新地圖顏色
-        function updateMap(seq) {
-            countiesData.forEach((county, i) => {
-                const path = countyElements[county.id];
-                if (path) {
-                    const visits = parseInt(seq[i]) || 0;
-                    path.style.fill = colors[visits] || '#999';
-                    path.title = `${county.title}: ${visits}次`;
-                }
-            });
-        }
-        
-        // Enter鍵觸發查詢
-        document.getElementById('nickname').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loadUserData();
+        const width = 500, height = 500;
+        const projection = d3.geoOrthographic()
+            .scale(220)
+            .translate([width / 2, height / 2])
+            .rotate([0, 0])  // 初始視角
+            .clipAngle(90);
+
+        const path = d3.geoPath().projection(projection);
+        const svg = d3.select("#worldmap").append("svg")
+            .attr("width", width).attr("height", height)
+            .call(d3.drag().on("drag", dragRotate));
+
+        const visited = ['TWN', 'JPN', 'USA', 'CAN', 'KOR'];  // 加韓國示例，改你的
+
+        // 載入地圖（unpkg CDN，GitHub Pages安全）
+        d3.json("https://unpkg.com/world-atlas@2.0.2/countries-110m.json").then(world => {
+            const land = topojson.feature(world, world.objects.countries);
+
+            svg.append("path")
+                .datum({type: "Sphere"})
+                .attr("class", "ocean")
+                .attr("d", path);
+
+            svg.selectAll(".land")
+                .data(land.features)
+                .enter().append("path")
+                .attr("class", "land")
+                .attr("d", path)
+                .style("fill", d => visited.includes(d.properties.iso_a3) ? "gold" : "rgba(188,188,188,0.8)")
+                .style("stroke", "#fff")
+                .style("stroke-width", d => visited.includes(d.properties.iso_a3) ? "1px" : "0.3px")
+                .on("mouseover", (event, d) => {
+                    d3.select("#info").text(`國家: ${d.properties.name} (ISO: ${d.properties.iso_a3})`);
+                })
+                .on("mouseout", () => d3.select("#info").text("拖曳旋轉 | 黃色=去過國家"));
+
+            // 自動旋轉（選用）
+            // d3.timer(() => { projection.rotate([Date.now() * 0.005 % 360, 0]); svg.selectAll("path").attr("d", path); });
+        }).catch(err => {
+            document.getElementById("error").textContent = "載入失敗: " + err + " (檢查網路或CDN)";
+            document.getElementById("error").style.display = "block";
         });
-        
-        // 頁面載入完成
-        window.onload = () => {
-            initMap();
-        };
+
+        function dragRotate(event) {
+            const rotate = projection.rotate();
+            const dx = event.dx / 2;
+            const dy = -event.dy / 2;
+            projection.rotate([rotate[0] + dx, Math.max(-90, Math.min(90, rotate[1] + dy))]);
+            svg.selectAll("path").attr("d", path);
+        }
     </script>
 </body>
 </html>
+
 
 
