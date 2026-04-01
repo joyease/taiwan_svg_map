@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科技 x 人文：文明進化觀 · Hermann</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–ink:    #1c1c2e;
+–paper:  #f4efe6;
+–warm:   #fefcf7;
+–muted:  #7a746d;
+–border: rgba(28,28,46,0.11);
+
+/* per-card accent colours */
+–c1: #b5451b;   /* AI科技  — 磚紅 */
+–c2: #1a4f72;   /* 機器人  — 深藍 */
+–c3: #2e6b4f;   /* 商業轉型 — 墨綠 */
+–c4: #7b4f1a;   /* 人文思想 — 赭棕 */
+–c5: #5b2d8e;   /* 人性溝通 — 紫 */
+–c6: #1a4d3a;   /* 文華原創 — 深青 */
+}
+
+body {
+font-family: ‘Noto Sans TC’, sans-serif;
+background: var(–paper);
+color: var(–ink);
+min-height: 100vh;
+}
+
+/* ───── HERO ───── */
+.hero {
+position: relative;
+padding: 56px 24px 44px;
+text-align: center;
+overflow: hidden;
+background:
+radial-gradient(ellipse 70% 55% at 50% -10%, rgba(181,69,27,.08) 0%, transparent 65%),
+var(–paper);
+border-bottom: 1px solid var(–border);
+}
+.hero-bg-char {
+position: absolute;
+font-family: ‘Noto Serif TC’, serif;
+font-size: 360px;
+font-weight: 900;
+color: rgba(28,28,46,.035);
+top: -80px; left: 50%;
+transform: translateX(-50%);
+pointer-events: none;
+user-select: none;
+white-space: nowrap;
+letter-spacing: -24px;
+}
+.hero-en {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: clamp(10px, 1.6vw, 12px);
+letter-spacing: .35em;
+text-transform: uppercase;
+color: var(–c1);
+display: block;
+margin-bottom: 14px;
+position: relative;
+}
+.hero-title {
+font-family: ‘Noto Serif TC’, serif;
+font-size: clamp(30px, 6.5vw, 56px);
+font-weight: 900;
+line-height: 1.18;
+color: var(–ink);
+position: relative;
+margin-bottom: 10px;
+}
+.hero-title .x { color: var(–c1); }
+.hero-desc {
+font-size: clamp(12px, 1.8vw, 14px);
+color: var(–muted);
+font-weight: 300;
+letter-spacing: .1em;
+margin-bottom: 28px;
+position: relative;
+}
+.hero-btn {
+display: inline-block;
+padding: 11px 30px;
+background: var(–ink);
+color: var(–paper);
+font-size: 12px;
+letter-spacing: .18em;
+text-transform: uppercase;
+text-decoration: none;
+font-weight: 500;
+position: relative;
+transition: background .2s, transform .15s;
+}
+.hero-btn:hover { background: var(–c1); transform: translateY(-2px); }
+
+/* ───── INTRO BAR ───── */
+.intro-bar {
+max-width: 1100px;
+margin: 36px auto 0;
+padding: 0 24px;
+display: flex;
+align-items: center;
+gap: 16px;
+}
+.intro-bar-line { flex: 1; height: 1px; background: var(–border); }
+.intro-bar-label {
+font-family: ‘Noto Serif TC’, serif;
+font-size: 13px;
+font-weight: 600;
+color: var(–muted);
+letter-spacing: .3em;
+white-space: nowrap;
+}
+
+/* ───── STAT BAR ───── */
+.stat-bar {
+max-width: 1100px;
+margin: 20px auto 0;
+padding: 0 24px;
+display: flex;
+gap: 32px;
+flex-wrap: wrap;
+}
+.stat {
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+.stat-num {
+font-family: ‘DM Serif Display’, serif;
+font-size: 28px;
+color: var(–ink);
+line-height: 1;
+}
+.stat-label {
+font-size: 11px;
+color: var(–muted);
+letter-spacing: .12em;
+}
+
+/* ───── GRID ───── */
+.grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1px;
+background: var(–border);
+max-width: 1100px;
+margin: 28px auto 0;
+border: 1px solid var(–border);
+}
+@media (max-width: 780px) {
+.grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+.grid { grid-template-columns: 1fr; }
+}
+
+/* ───── CARD ───── */
+.card {
+background: var(–warm);
+padding: 30px 26px 24px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+position: relative;
+overflow: hidden;
+text-decoration: none;
+color: inherit;
+transition: background .22s;
+min-height: 280px;
+}
+.card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: var(–ca);
+transform: scaleX(0);
+transform-origin: left;
+transition: transform .35s ease;
+}
+.card::after {
+content: attr(data-bg-char);
+position: absolute;
+font-family: ‘Noto Serif TC’, serif;
+font-size: 120px;
+font-weight: 900;
+color: rgba(28,28,46,.04);
+bottom: -20px; right: -10px;
+line-height: 1;
+pointer-events: none;
+user-select: none;
+transition: transform .35s ease, opacity .35s;
+}
+.card:hover { background: #fffefc; }
+.card:hover::before { transform: scaleX(1); }
+.card:hover::after { transform: scale(1.08) translateY(-4px); opacity: .07; }
+
+.card-num {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 11px;
+color: var(–ca);
+letter-spacing: .3em;
+text-transform: uppercase;
+}
+.card-title {
+font-family: ‘Noto Serif TC’, serif;
+font-size: clamp(19px, 2.8vw, 23px);
+font-weight: 900;
+line-height: 1.25;
+color: var(–ink);
+}
+.card-en {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 12px;
+color: var(–muted);
+letter-spacing: .05em;
+}
+.card-desc {
+font-size: 12.5px;
+line-height: 1.9;
+color: var(–muted);
+font-weight: 300;
+flex: 1;
+margin-top: 2px;
+}
+
+/* tag chips */
+.card-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 5px;
+margin-top: 4px;
+}
+.tag {
+font-size: 10.5px;
+padding: 2px 9px;
+border: 1px solid var(–border);
+color: var(–muted);
+letter-spacing: .04em;
+background: transparent;
+transition: border-color .2s, color .2s;
+}
+.card:hover .tag { border-color: var(–ca); color: var(–ca); }
+
+/* count badge */
+.card-count {
+display: flex;
+align-items: center;
+gap: 6px;
+margin-top: auto;
+}
+.count-pill {
+font-family: ‘DM Serif Display’, serif;
+font-size: 22px;
+color: var(–ca);
+line-height: 1;
+}
+.count-unit {
+font-size: 10.5px;
+color: var(–muted);
+letter-spacing: .08em;
+}
+.card-arrow {
+margin-left: auto;
+font-size: 18px;
+color: var(–ca);
+transition: transform .2s;
+}
+.card:hover .card-arrow { transform: translateX(5px); }
+
+/* colour helpers */
+.c1 { –ca: var(–c1); }
+.c2 { –ca: var(–c2); }
+.c3 { –ca: var(–c3); }
+.c4 { –ca: var(–c4); }
+.c5 { –ca: var(–c5); }
+.c6 { –ca: var(–c6); }
+
+/* ───── CATEGORY LEGEND ───── */
+.legend {
+max-width: 1100px;
+margin: 1px auto 0;
+background: var(–border);
+border: 1px solid var(–border);
+border-top: none;
+}
+.legend-inner {
+background: var(–ink);
+padding: 28px 36px;
+display: flex;
+gap: 20px;
+flex-wrap: wrap;
+align-items: flex-start;
+}
+.legend-col {
+flex: 1 1 160px;
+}
+.legend-heading {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 10px;
+letter-spacing: .35em;
+text-transform: uppercase;
+color: rgba(245,240,232,.4);
+margin-bottom: 12px;
+display: block;
+}
+.legend-item {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 8px;
+text-decoration: none;
+}
+.legend-dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+background: var(–lc, #aaa);
+flex-shrink: 0;
+}
+.legend-text {
+font-size: 12px;
+color: rgba(245,240,232,.75);
+font-weight: 300;
+letter-spacing: .04em;
+transition: color .2s;
+}
+.legend-item:hover .legend-text { color: rgba(245,240,232,1); }
+.legend-cnt {
+margin-left: auto;
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 12px;
+color: rgba(245,240,232,.35);
+}
+
+/* ───── FEATURED ROW ───── */
+.featured-row {
+max-width: 1100px;
+margin: 1px auto 0;
+background: var(–border);
+border: 1px solid var(–border);
+border-top: none;
+}
+.featured-inner {
+background: var(–ink);
+padding: 32px 36px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 24px;
+flex-wrap: wrap;
+}
+.featured-inner .left { flex: 1 1 300px; }
+.featured-inner .eyebrow {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 11px;
+letter-spacing: .3em;
+text-transform: uppercase;
+color: #b8860b;
+margin-bottom: 8px;
+display: block;
+}
+.featured-inner h3 {
+font-family: ‘Noto Serif TC’, serif;
+font-size: clamp(18px, 3.5vw, 24px);
+font-weight: 900;
+color: var(–paper);
+line-height: 1.3;
+}
+.featured-inner p {
+margin-top: 10px;
+font-size: 13px;
+color: rgba(245,240,232,.6);
+font-weight: 300;
+line-height: 1.8;
+}
+.featured-link {
+display: inline-block;
+padding: 12px 30px;
+border: 1px solid #b8860b;
+color: #b8860b;
+font-size: 12px;
+letter-spacing: .2em;
+text-transform: uppercase;
+text-decoration: none;
+transition: background .2s, color .2s;
+white-space: nowrap;
+flex-shrink: 0;
+}
+.featured-link:hover { background: #b8860b; color: var(–ink); }
+
+/* ───── FOOTER ───── */
+.footer {
+max-width: 1100px;
+margin: 36px auto 0;
+padding: 24px 24px 48px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 10px;
+border-top: 1px solid var(–border);
+}
+.footer-brand {
+font-family: ‘Noto Serif TC’, serif;
+font-size: 14px;
+font-weight: 600;
+color: var(–ink);
+letter-spacing: .08em;
+}
+.footer-brand span {
+font-family: ‘DM Serif Display’, serif;
+font-style: italic;
+font-size: 11px;
+font-weight: 400;
+color: var(–muted);
+letter-spacing: .15em;
+margin-left: 8px;
+}
+.footer-copy {
+font-size: 11px;
+color: var(–muted);
+letter-spacing: .05em;
+}
+
+/* ───── ANIMATIONS ───── */
+@keyframes fadeUp {
+from { opacity:0; transform:translateY(22px); }
+to   { opacity:1; transform:translateY(0); }
+}
+.hero > * { animation: fadeUp .7s ease both; }
+.hero-en       { animation-delay: .05s; }
+.hero-title    { animation-delay: .15s; }
+.hero-desc     { animation-delay: .25s; }
+.hero-btn      { animation-delay: .35s; }
+.card { animation: fadeUp .55s ease both; }
+.card:nth-child(1){animation-delay:.10s}
+.card:nth-child(2){animation-delay:.18s}
+.card:nth-child(3){animation-delay:.26s}
+.card:nth-child(4){animation-delay:.34s}
+.card:nth-child(5){animation-delay:.42s}
+.card:nth-child(6){animation-delay:.50s}
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-bg-char">文明</div>
+  <span class="hero-en">Technology × Humanity · Civilizational Evolution</span>
+  <h1 class="hero-title">科技 <span class="x">×</span> 人文<br>文明進化觀</h1>
+  <p class="hero-desc">從科技脈動到人文思維，探索文明演進的軌跡 · 文華 Hermann</p>
+  <a href="https://www.hermann.tw" class="hero-btn" target="_blank">進入部落格全站 →</a>
+</div>
+
+<!-- STAT BAR -->
+
+<div class="stat-bar">
+  <div class="stat"><span class="stat-num">26,000+</span><span class="stat-label">累積文章篇數</span></div>
+  <div class="stat"><span class="stat-num">24</span><span class="stat-label">主題分類</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">閱讀入口</span></div>
+</div>
+
+<!-- DIVIDER -->
+
+<div class="intro-bar">
+  <div class="intro-bar-line"></div>
+  <div class="intro-bar-label">選擇你的閱讀入口</div>
+  <div class="intro-bar-line"></div>
+</div>
+
+<!-- 6-CARD GRID -->
+
+<div class="grid">
+
+  <!-- ① AI 科技應用 265篇 -->
+
+<a href="https://www.hermann.tw/search/label/AI%20%E5%89%B5%E6%96%B0%E6%87%89%E7%94%A8"
+class="card c1" data-bg-char="智"
+target="_blank">
+<div class="card-num">Category 01 · 265 篇</div>
+<div class="card-title">AI 科技<br>應用探索</div>
+<div class="card-en">AI Innovation & Technology</div>
+<div class="card-desc">
+AI 創新應用、機器學習新發展、電影中的 AI 想像、AI 與政經社會衝擊、AI 與財務金融、AI 與傳統文化的交匯。科技最前沿的第一手觀察。
+</div>
+<div class="card-tags">
+<span class="tag">AI 創新應用 ×73</span>
+<span class="tag">AI 電影 ×10</span>
+<span class="tag">AI 政經 ×7</span>
+<span class="tag">AI 財金 ×13</span>
+<span class="tag">AI 傳統文化 ×3</span>
+</div>
+<div class="card-count">
+<span class="count-pill">265</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+  <!-- ② 機器人與奇點 135篇 -->
+
+<a href="https://www.hermann.tw/search/label/Robotics%20%E6%A9%9F%E5%99%A8%E4%BA%BA"
+class="card c2" data-bg-char="械"
+target="_blank">
+<div class="card-num">Category 02 · 135 篇</div>
+<div class="card-title">機器人與<br>奇點未來</div>
+<div class="card-en">Robotics, Hiroshi & Singularity</div>
+<div class="card-desc">
+105 篇 Robotics 深度觀察、Hiroshi Ishiguro 分身機器人研究、奇點理論的演進。人機共存時代最完整的紀錄與思考。
+</div>
+<div class="card-tags">
+<span class="tag">Robotics ×105</span>
+<span class="tag">Hiroshi 分身機器人 ×19</span>
+<span class="tag">Singularity 奇點 ×11</span>
+</div>
+<div class="card-count">
+<span class="count-pill">135</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+  <!-- ③ 商業思維與轉型 116篇 -->
+
+<a href="https://www.hermann.tw/search/label/%E6%98%8E%E5%93%B2%E5%8C%AF"
+class="card c3" data-bg-char="商"
+target="_blank">
+<div class="card-num">Category 03 · 116 篇</div>
+<div class="card-title">商業思維<br>與轉型創新</div>
+<div class="card-en">Business, Innovation & Strategy</div>
+<div class="card-desc">
+明哲匯的商業洞察、轉型與創新實戰、競爭與包容的策略思維、Demo 展示的說服力量。企業主管與創業者的必讀地圖。
+</div>
+<div class="card-tags">
+<span class="tag">明哲匯 ×49</span>
+<span class="tag">Demo & Exhibition ×43</span>
+<span class="tag">轉型與創新 ×11</span>
+<span class="tag">競爭與包容 ×14</span>
+</div>
+<div class="card-count">
+<span class="count-pill">116</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+  <!-- ④ 人文思想與智慧 123篇 -->
+
+<a href="https://www.hermann.tw/search/label/Harari%20%E6%AD%B7%E5%8F%B2%E8%88%87%E9%80%A3%E7%B5%90"
+class="card c4" data-bg-char="道"
+target="_blank">
+<div class="card-num">Category 04 · 123 篇</div>
+<div class="card-title">人文思想<br>與跨世代智慧</div>
+<div class="card-en">Humanities, History & Wisdom</div>
+<div class="card-desc">
+Harari 的歷史宏觀、Kahneman 的行為科學、Naval 的人生哲學、Pinker 的理性樂觀、Grant 的逆思維、Taguchi 的東方管理智慧、諸子百家。
+</div>
+<div class="card-tags">
+<span class="tag">Naval ×32</span>
+<span class="tag">Harari ×22</span>
+<span class="tag">Kahneman ×15</span>
+<span class="tag">Pinker ×13</span>
+<span class="tag">Taguchi ×16</span>
+<span class="tag">諸子百家 ×19</span>
+<span class="tag">Grant ×6</span>
+</div>
+<div class="card-count">
+<span class="count-pill">123</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+  <!-- ⑤ 人性溝通與即興 41篇 -->
+
+<a href="https://www.hermann.tw/search/label/%E4%BA%BA%E6%80%A7%E8%88%87%E6%BA%9D%E9%80%9A"
+class="card c5" data-bg-char="心"
+target="_blank">
+<div class="card-num">Category 05 · 41 篇</div>
+<div class="card-title">人性、溝通<br>與即興創造</div>
+<div class="card-en">Human Nature, Communication & Improv</div>
+<div class="card-desc">
+人為什麼這樣思考與溝通？Improv 即興的創造力訓練如何應用於職場與生活？理解人性，才能真正連結。
+</div>
+<div class="card-tags">
+<span class="tag">人性與溝通 ×33</span>
+<span class="tag">Improv 即興 ×8</span>
+</div>
+<div class="card-count">
+<span class="count-pill">41</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+  <!-- ⑥ 文華原創與觀察 43篇 -->
+
+<a href="https://www.hermann.tw/search/label/%E6%96%87%E8%8F%AF%E8%AA%AA"
+class="card c6" data-bg-char="觀"
+target="_blank">
+<div class="card-num">Category 06 · 43 篇</div>
+<div class="card-title">文華原創<br>觀察與講座</div>
+<div class="card-en">Hermann’s Original Writing & Talks</div>
+<div class="card-desc">
+文華說——作者親筆的思考與觀察、演講與讀書會的現場紀錄、Podcast 對話精華。這是最直接觸碰文華視角的窗口。
+</div>
+<div class="card-tags">
+<span class="tag">文華說 ×28</span>
+<span class="tag">演講或讀書會 ×10</span>
+<span class="tag">Podcast ×5</span>
+</div>
+<div class="card-count">
+<span class="count-pill">43</span>
+<span class="count-unit">篇文章</span>
+<span class="card-arrow">→</span>
+</div>
+</a>
+
+</div><!-- /grid -->
+
+<!-- FEATURED: 最新系列 -->
+
+<div class="featured-row">
+  <div class="featured-inner">
+    <div class="left">
+      <span class="eyebrow">Latest Series · 最新系列</span>
+      <h3>《我們的美元，你們的問題》<br>全系列導讀</h3>
+      <p>諾貝爾經濟學家 Kenneth Rogoff 的重磅新書，從美元霸權、日本經驗、加密貨幣到全球金融未來，逐章深度解析。</p>
+    </div>
+    <a href="https://www.hermann.tw/search/label/AI%20%E8%88%87%E8%B2%A1%E5%8B%99%E9%87%91%E8%9E%8D" class="featured-link" target="_blank">閱讀系列 →</a>
+  </div>
+</div>
+
+<!-- ALL-TAGS LEGEND -->
+
+<div class="legend">
+  <div class="legend-inner">
+
+```
+<div class="legend-col">
+  <span class="legend-heading">① AI 科技應用</span>
+  <a href="https://www.hermann.tw/search/label/AI%20%E5%89%B5%E6%96%B0%E6%87%89%E7%94%A8" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c1)"></span>
+    <span class="legend-text">AI 創新應用</span>
+    <span class="legend-cnt">73</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/AI%20%E7%9A%84%E9%9B%BB%E5%BD%B1" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c1)"></span>
+    <span class="legend-text">AI 的電影</span>
+    <span class="legend-cnt">10</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/AI%20%E8%88%87%E6%94%BF%E7%B6%93%E7%A4%BE%E6%9C%83" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c1)"></span>
+    <span class="legend-text">AI 與政經社會</span>
+    <span class="legend-cnt">7</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/AI%20%E8%88%87%E8%B2%A1%E5%8B%99%E9%87%91%E8%9E%8D" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c1)"></span>
+    <span class="legend-text">AI 與財務金融</span>
+    <span class="legend-cnt">13</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/AI%20%E8%88%87%E5%82%B3%E7%B5%B1%E6%96%87%E5%8C%96" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c1)"></span>
+    <span class="legend-text">AI 與傳統文化</span>
+    <span class="legend-cnt">3</span>
+  </a>
+</div>
+
+<div class="legend-col">
+  <span class="legend-heading">② 機器人與奇點</span>
+  <a href="https://www.hermann.tw/search/label/Robotics%20%E6%A9%9F%E5%99%A8%E4%BA%BA" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c2)"></span>
+    <span class="legend-text">Robotics 機器人</span>
+    <span class="legend-cnt">105</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Hiroshi%20%E5%88%86%E8%BA%AB%E6%A9%9F%E5%99%A8%E4%BA%BA" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c2)"></span>
+    <span class="legend-text">Hiroshi 分身機器人</span>
+    <span class="legend-cnt">19</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Singularity%20%E5%A5%87%E9%BB%9E" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c2)"></span>
+    <span class="legend-text">Singularity 奇點</span>
+    <span class="legend-cnt">11</span>
+  </a>
+</div>
+
+<div class="legend-col">
+  <span class="legend-heading">③ 商業思維與轉型</span>
+  <a href="https://www.hermann.tw/search/label/%E6%98%8E%E5%93%B2%E5%8C%AF" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c3)"></span>
+    <span class="legend-text">明哲匯</span>
+    <span class="legend-cnt">49</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Demo%20%26%20Exhibition" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c3)"></span>
+    <span class="legend-text">Demo & Exhibition</span>
+    <span class="legend-cnt">43</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/%E8%BD%89%E5%9E%8B%E8%88%87%E5%89%B5%E6%96%B0" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c3)"></span>
+    <span class="legend-text">轉型與創新</span>
+    <span class="legend-cnt">11</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/%E7%AB%B6%E7%88%AD%E8%88%87%E5%8C%85%E5%AE%B9" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c3)"></span>
+    <span class="legend-text">競爭與包容</span>
+    <span class="legend-cnt">14</span>
+  </a>
+</div>
+
+<div class="legend-col">
+  <span class="legend-heading">④ 人文思想與智慧</span>
+  <a href="https://www.hermann.tw/search/label/Naval%20%E7%B4%8D%E7%93%A6%E7%88%BE%E5%AF%B6%E5%85%B8" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Naval 納瓦爾寶典</span>
+    <span class="legend-cnt">32</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/%E8%AB%B8%E5%AD%90%E7%99%BE%E5%AE%B6" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">諸子百家</span>
+    <span class="legend-cnt">19</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Harari%20%E6%AD%B7%E5%8F%B2%E8%88%87%E9%80%A3%E7%B5%90" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Harari 歷史與連結</span>
+    <span class="legend-cnt">22</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Kahneman%20%E5%BF%AB%E6%80%9D%E6%85%A2%E6%83%B3" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Kahneman 快思慢想</span>
+    <span class="legend-cnt">15</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Taguchi%20%E7%94%B0%E5%8F%A3%E4%BD%B3%E5%8F%B2" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Taguchi 田口佳史</span>
+    <span class="legend-cnt">16</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Pinker" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Pinker</span>
+    <span class="legend-cnt">13</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Grant%20%E9%80%86%E6%80%9D%E7%B6%AD" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c4)"></span>
+    <span class="legend-text">Grant 逆思維</span>
+    <span class="legend-cnt">6</span>
+  </a>
+</div>
+
+<div class="legend-col">
+  <span class="legend-heading">⑤ 人性溝通</span>
+  <a href="https://www.hermann.tw/search/label/%E4%BA%BA%E6%80%A7%E8%88%87%E6%BA%9D%E9%80%9A" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c5)"></span>
+    <span class="legend-text">人性與溝通</span>
+    <span class="legend-cnt">33</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Improv%20%E5%8D%B3%E8%88%88" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c5)"></span>
+    <span class="legend-text">Improv 即興</span>
+    <span class="legend-cnt">8</span>
+  </a>
+</div>
+
+<div class="legend-col">
+  <span class="legend-heading">⑥ 文華原創</span>
+  <a href="https://www.hermann.tw/search/label/%E6%96%87%E8%8F%AF%E8%AA%AA" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c6)"></span>
+    <span class="legend-text">文華說</span>
+    <span class="legend-cnt">28</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/%E6%BC%94%E8%AC%9B%E6%88%96%E8%AE%80%E6%9B%B8%E6%9C%83" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c6)"></span>
+    <span class="legend-text">演講或讀書會</span>
+    <span class="legend-cnt">10</span>
+  </a>
+  <a href="https://www.hermann.tw/search/label/Podcast" class="legend-item" target="_blank">
+    <span class="legend-dot" style="--lc:var(--c6)"></span>
+    <span class="legend-text">Podcast</span>
+    <span class="legend-cnt">5</span>
+  </a>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+  <div class="footer-brand">
+    文華 Hermann
+    <span>科技 × 人文 · 文明進化觀</span>
+  </div>
+  <div class="footer-copy">© 2026 · hermann.tw · All rights reserved</div>
+</div>
+
+</body>
+</html>
