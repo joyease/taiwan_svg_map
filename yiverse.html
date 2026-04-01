@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學易真容易</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900" as="style" onload="this.rel='stylesheet'"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3617cf",
+                        "background-light": "#fef9c3",   // 淺黃色背景
+                        "background-dark": "#141121",
+                        "text-dark-blue": "#00264d",     // 深藍字
+                        "text-dark-green": "#014421"     // 深綠字 (備用)
+                    },
+                    fontFamily: {
+                        display: ["Noto Serif", "serif"],
+                        sans: ["Noto Sans", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-sans text-text-dark-blue">
+    <div class="relative flex min-h-screen w-full flex-col justify-between overflow-x-hidden">
+        <div class="flex-grow">
+            <div class="relative">
+                <!-- 明亮藍天白雲背景 -->
+                <img alt="藍天白雲背景" class="absolute inset-0 h-full w-full object-cover" 
+                     src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2070&auto=format&fit=crop" />
+                <!-- 淡淡的漸層遮罩，保留亮感 -->
+                <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-background-light/90"></div>
+
+                <div class="relative">
+                    <header class="flex items-center justify-between p-4">
+                        <div class="w-10"></div>
+                        <h1 class="flex-1 text-center text-lg font-bold text-text-dark-blue font-display">首頁</h1>
+                        <button class="flex h-10 w-10 items-center justify-center rounded-full text-text-dark-blue" aria-label="主選單">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                    </header>
+
+                    <div class="p-4 pt-16 text-center">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-text-dark-blue font-display">
+                            易次元——<br>AI時代的《易經》智慧!
+                        </h2>
+                        <p class="mt-4 mx-auto max-w-lg text-base font-normal text-text-dark-blue/80">
+                            來到生成式AI 的時代, 《易經》不再是艱深難解的古老秘典，
+							也不再受限於一家之言，AI的繪畫與新時代註解,賦予它新的意思,
+                            你可以認識不一樣的易經, 請教 AI 共時與偶然性的解釋, 
+                            你的憂愁與煩悶, 讓 AI 陪你一起解讀、幫助你放鬆與恢復。
+                            在這裡，你可以體驗 3 種有趣的占卜方式，
+                            閱讀古今對《易經》的全新詮釋，還有每一卦專屬的趣味插畫。
+                            這是《易經》──為現代生活重新創作的版本。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <main class="relative p-4" style="margin-top: -4rem;">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 rounded-xl bg-background-light/95 backdrop-blur-sm p-4 shadow-2xl">
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E7%94%9F%E6%B4%BB%E6%98%93">
+                        <span class="material-symbols-outlined text-primary">import_contacts</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">生活易</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E6%AD%B7%E5%8F%B2%E6%98%93">
+                        <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">歷史易</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E7%A7%91%E5%AD%B8%E6%98%93">
+                        <span class="material-symbols-outlined text-primary">psychology</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">科學易</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E4%B8%89%E5%9C%8B%E6%98%93">
+                        <span class="material-symbols-outlined text-primary">shuffle</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">三國易</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E9%87%91%E9%8C%A2%E5%8D%A6">
+                        <span class="material-symbols-outlined text-primary">history_edu</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">金錢卦</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E6%99%82%E9%96%93%E5%8D%A6">
+                        <span class="material-symbols-outlined text-primary">palette</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">時間卦</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E5%8D%A1%E7%89%8C%E5%8D%A6">
+                        <span class="material-symbols-outlined text-primary">quiz</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">卡牌卦</h3>
+                    </a>
+                    <a class="flex items-center gap-3 rounded-lg bg-primary/10 p-4 transition-all duration-300 ease-in-out hover:bg-primary/20 hover:scale-105" href="https://sites.google.com/view/hermannyi/%E9%97%9C%E6%96%BC">
+                        <span class="material-symbols-outlined text-primary">forum</span>
+                        <h3 class="text-base font-bold text-text-dark-blue">關於</h3>
+                    </a>
+                </div>
+            </main>
+        </div>
+
+        <footer class="sticky bottom-0 border-t border-black/10 bg-background-light/95 backdrop-blur-sm">
+            <nav class="flex justify-around py-2">
+                <a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="#" aria-current="page">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20">
+                        <span class="material-symbols-outlined">home</span>
+                    </div>
+                    <p class="text-xs font-medium">首頁</p>
+                </a>
+                <a class="flex flex-1 flex-col items-center justify-end gap-1 text-text-dark-blue/70" href="#">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                    </div>
+                    <p class="text-xs font-medium">占卜</p>
+                </a>
+                <a class="flex flex-1 flex-col items-center justify-end gap-1 text-text-dark-blue/70" href="#">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined">book</span>
+                    </div>
+                    <p class="text-xs font-medium">易經</p>
+                </a>
+                <a class="flex flex-1 flex-col items-center justify-end gap-1 text-text-dark-blue/70" href="#">
+                    <div class="flex h-8 w-8 items-center justify-center">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <p class="text-xs font-medium">我的</p>
+                </a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>
