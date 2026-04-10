@@ -26,10 +26,10 @@ body{
  color:var(--ink);
 }
 
-/* HERO */
+/* HERO - 縮小上下內距 */
 .hero{
  text-align:center;
- padding:100px 20px 70px;
+ padding:60px 20px 40px; 
  background:linear-gradient(to bottom,#fdfaf4,#f6f1e8);
 }
 
@@ -41,26 +41,27 @@ body{
 }
 
 .hero-sub{
- margin-top:16px;
+ margin-top:12px;
  color:#a65a2a;
  font-size:14px;
  letter-spacing:.2em;
 }
 
 .hero-desc{
- margin-top:20px;
+ margin-top:15px;
  font-size:15px;
  color:var(--muted);
  line-height:1.8;
 }
 
-/* 三大主軸 */
+/* 三大主軸 - 縮小上下邊距 */
 .feature{
  max-width:1100px;
- margin:40px auto;
+ margin:20px auto; 
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:20px;
+ padding: 0 20px;
 }
 
 @media(max-width:768px){
@@ -68,7 +69,7 @@ body{
 }
 
 .feature-card{
- padding:30px;
+ padding:25px;
  border-radius:16px;
  background:white;
  transition:.3s;
@@ -120,20 +121,21 @@ body{
  transform:translateY(-2px);
 }
 
-/* 精選內容 */
+/* 精選內容 - 縮小上方間距 */
 .section-title{
  text-align:center;
- margin-top:80px;
+ margin-top:40px; 
  font-family:'Noto Serif TC',serif;
  font-size:28px;
 }
 
 .grid{
  max-width:1100px;
- margin:50px auto;
+ margin:30px auto; 
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:20px;
+ padding: 0 20px;
 }
 
 @media(max-width:768px){
@@ -142,7 +144,7 @@ body{
 
 .card{
  background:white;
- padding:30px;
+ padding:25px;
  border-radius:16px;
  transition:.25s;
  text-decoration:none;
@@ -181,7 +183,7 @@ body{
 /* PODCAST */
 .podcast{
  text-align:center;
- margin:50px 0;
+ margin:30px 0;
 }
 
 .podcast a{
@@ -194,10 +196,10 @@ body{
  text-decoration:none;
 }
 
-/* FOOTER */
+/* FOOTER - 縮小上方間距 */
 .footer{
  text-align:center;
- margin:80px 0;
+ margin:50px 0 60px; 
  font-size:13px;
  color:#6b645c;
  line-height:1.8;
@@ -212,7 +214,7 @@ body{
   <div class="hero-title">赫學堂</div>
   <div class="hero-sub">赫，就是"好"，就是"和"!</div>
   <div class="hero-desc">
-   開卷共學，科技共好，人文共善!
+    開卷共學，科技共好，人文共善!
   </div>
 </div>
 
