@@ -1,0 +1,7 @@
+2026/4/3 create new yi.hermann.tw as 赫學堂
+2026/4/3 joyease.github.io/mymap/yi1.html 第一版
+2026/4/4 yi2.html 放到 sites.google.com/view/hermannyi as  yi.hermann.tw
+2026/4/6 yi3.html 保留, 但手機的中間動不了
+2026/4/7 yi4.html 更改版型
+2026/4/10 yi5.html 取代 yi3 (刪掉中間)
+2026/4/10 yi6.html 更改版型取代 yi5 (chatGPT)
